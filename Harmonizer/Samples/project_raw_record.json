@@ -1,0 +1,49 @@
+{
+  "source": "ProjectSystemX",
+  "payload": {
+    "projId": "PRJ-2025-001",
+    "title": "Next Gen Platform Revamp",
+    "status": "In Progress",
+    "phase": "Execution",
+    "start_date": "2025-02-10",
+    "dueDate": "2025-11-30",
+    "budget": { "allocated": 250000, "currency": "USD", "spent_to_date": 87234.56 },
+    "pm": { "id": "USR-17", "name": "Alicia Gomez", "email": "alicia.g@example.com" },
+    "stakeHolders": [
+      { "id": "CUST-22", "type": "client", "contact": { "name": "MegaCorp", "email": "contact@megacorp.io" } },
+      { "id": "USR-88", "type": "internal", "contact": { "name": "Dev Lead", "email": "lead@example.com" } }
+    ],
+    "team": {
+      "members": [
+        { "uid": "USR-88", "role": "Lead Engineer", "allocPct": 80, "skills": ["C#", "Azure", "LLM", "Kafka"] },
+        { "uid": "USR-132", "role": "Backend", "allocPct": 60, "skills": ["C#", "Postgres"] },
+        { "uid": "USR-145", "role": "Data", "allocPct": 50, "skills": ["Python", "Spark", "LLM"] }
+      ],
+      "velocityHistory": [ { "sprint": 18, "points": 42 }, { "sprint": 19, "points": 39 } ]
+    },
+    "tasks": [
+      { "id": "TASK-101", "title": "Refactor Auth", "state": "done", "estHrs": 16, "actualHrs": 14.5, "dependencies": [] },
+      { "id": "TASK-102", "title": "Event Bus Setup", "state": "in_progress", "estHrs": 40, "actualHrs": 12, "dependencies": ["TASK-101"] },
+      { "id": "TASK-103", "title": "Data Lake Schema", "state": "todo", "estHrs": 32, "dependencies": ["TASK-102"] }
+    ],
+    "risks": [
+      { "code": "RISK-1", "desc": "Legacy system integration delays", "impact": "High", "probability": "Medium" },
+      { "code": "RISK-2", "desc": "Scope creep from client", "impact": "Medium", "probability": "High" }
+    ],
+    "tags": ["platform", "revamp", "2025", "strategic"],
+    "lastUpdatedUtc": "2025-10-19T15:21:44Z",
+    "customFields": {
+      "jiraEpic": "PLAT-77",
+      "deploymentRegions": ["us-east-1", "eu-west-1"],
+      "qualityGate": {
+        "passed": false,
+        "lastRun": "2025-10-18T11:05:00Z",
+        "issues": { "critical": 2, "major": 5, "minor": 14 }
+      }
+    },
+    "documents": [
+      { "name": "Architecture Overview", "type": "pdf", "url": "https://docs.example.com/arch_overview.pdf", "version": 3 },
+      { "name": "Data Model", "type": "drawio", "url": "https://docs.example.com/data_model.drawio", "version": 1 }
+    ]
+  }
+}

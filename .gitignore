@@ -1,0 +1,48 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider/VSCode/VS/JetBrains IDE files
+.idea/
+.vscode/
+*.DotSettings
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# Publish output
+publish/
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Others
+_ReSharper*/
+*.resharper
+*.sln.ide
+*.vs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+

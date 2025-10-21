@@ -1,0 +1,69 @@
+{
+  "contextPrompt": "Generate a structured PROJECT REPORT JSON under root 'report' using the existing raw project record (referenced by recordId in the API call). Objectives: (1) Summarize project context, (2) Quantify schedule, financial, and task progress, (3) Provide risk aggregation, (4) Surface upcoming actions & milestones, (5) Preserve key metadata.\n\nMapping & Transformation Rules:\n- projectId <- raw.projId \n- title <- raw.title \n- status.lifecycleStage <- raw.phase \n- status.health: derive ('green','amber','red') using heuristics: if any High impact risk probability High OR qualityGate.passed=false with critical>0 then 'red'; else if spent/allocated > 0.75 AND overallPercentComplete < 50 then 'amber'; else 'green'.\n- status.trafficLight: map health (green=\"🟢\", amber=\"🟡\", red=\"🔴\").\n- dates.start <- raw.start_date; dates.due <- raw.dueDate. daysRemaining = difference in whole days from today UTC to dueDate (negative if overdue). percentTimeElapsed = (today - start)/(due - start)*100 rounded nearest int bounded 0..100.\n- financials.allocated <- raw.budget.allocated; financials.spent <- raw.budget.spent_to_date; currency <- raw.budget.currency; burnRatePerDay = spent / max(1, days since start); forecastAtCompletion = if percentTimeElapsed>0 then spent/percentTimeElapsed*100 else allocated (round 2 decimals).\n- team.manager <- raw.pm ({id,name,email}); team.members: map raw.team.members with {id=uid, role, allocationPct=allocPct, skills}; headcount = count(members).\n- progress: tasks counts from raw.tasks by state mapping (done->completed, in_progress->active, todo->pending). overallPercentComplete = completedTasks / totalTasks *100 integer. velocityHistory from raw.team.velocityHistory renamed fields same. focusAreas: list top 3 tags OR empty.\n- risks.open: map raw.risks {code, description=desc, impact, probability, mitigation=\"\"}. riskScoreAggregate: count by impact High/Medium/Low.\n- actions.dueSoon: tasks whose state in_progress and have dependencies unresolved (choose those with estHrs - actualHours > 0) with synthetic due = dueDate - 14 days ISO string. overdue: tasks where state=todo AND daysRemaining < 0 (due=dueDate). nextMilestones: create milestone for dueDate with name 'Final Delivery' confidencePct = 100 - (High risk count * 15).\n- qualityGate from raw.customFields.qualityGate.\n- documents from raw.documents.\n- tags from raw.tags. regions from raw.customFields.deploymentRegions.\n- derived.riskLevel: 'High' if any High impact risk probability High else 'Medium' if any High/Medium risk else 'Low'.\n- derived.scheduleVarianceDays: (planned remaining days) - (expected remaining days using percent progress and total duration).\n- derived.budgetVariancePct: ((spent/allocated) - (overallPercentComplete/100))*100 rounded 2 decimals.\n- audit.sourceSystem <- raw.source or source; audit.rawRecordId <- existing record id; harmonizationPromptVersion fixed 'v2-project-report'.\n\nOutput ONLY valid JSON matching desiredSchema. Use camelCase consistently. No extra commentary.",
+  "desiredSchema": {
+    "report": {
+      "generatedAtUtc": "",
+      "projectId": "",
+      "title": "",
+      "summary": "",
+      "status": {
+        "lifecycleStage": "",
+        "health": "",
+        "trafficLight": ""
+      },
+      "dates": {
+        "start": "",
+        "due": "",
+        "daysRemaining": 0,
+        "percentTimeElapsed": 0
+      },
+      "financials": {
+        "allocated": 0.0,
+        "spent": 0.0,
+        "burnRatePerDay": 0.0,
+        "forecastAtCompletion": 0.0,
+        "currency": ""
+      },
+      "team": {
+        "manager": { "id": "", "name": "", "email": "" },
+        "members": [ { "id": "", "role": "", "allocationPct": 0, "skills": [] } ],
+        "headcount": 0
+      },
+      "progress": {
+        "completedTasks": 0,
+        "activeTasks": 0,
+        "pendingTasks": 0,
+        "overallPercentComplete": 0,
+        "velocityHistory": [ { "sprint": 0, "points": 0 } ],
+        "focusAreas": []
+      },
+      "risks": {
+        "open": [ { "code": "", "description": "", "impact": "", "probability": "", "mitigation": "" } ],
+        "riskScoreAggregate": { "high": 0, "medium": 0, "low": 0 }
+      },
+      "actions": {
+        "dueSoon": [ { "id": "", "title": "", "due": "" } ],
+        "overdue": [ { "id": "", "title": "", "due": "" } ],
+        "nextMilestones": [ { "name": "", "targetDate": "", "confidencePct": 0 } ]
+      },
+      "qualityGate": {
+        "passed": false,
+        "lastRun": "",
+        "issues": { "critical": 0, "major": 0, "minor": 0 }
+      },
+      "documents": [ { "name": "", "type": "", "url": "", "version": 0 } ],
+      "tags": [],
+      "regions": [],
+      "derived": {
+        "riskLevel": "",
+        "scheduleVarianceDays": 0,
+        "budgetVariancePct": 0.0
+      },
+      "audit": {
+        "sourceSystem": "",
+        "rawRecordId": 0,
+        "harmonizationPromptVersion": "v2-project-report"
+      }
+    }
+  }
+}

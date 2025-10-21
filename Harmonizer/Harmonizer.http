@@ -1,0 +1,47 @@
+### Create new raw record using object
+POST https://localhost:7144/api/HarmonizedRecords
+Content-Type: application/json
+
+{
+  "payloadObject": {
+    "projId": "PRJ-2025-001",
+    "title": "Next Gen Platform Revamp",
+    "status": "In Progress"
+  },
+  "source": "ProjectSystemX"
+}
+
+### Create new raw record using string
+POST https://localhost:7144/api/HarmonizedRecords
+Content-Type: application/json
+
+{
+  "payload": "{\"projId\":\"PRJ-2025-002\",\"title\":\"AI Data Lake\",\"status\":\"Planning\"}",
+  "source": "ProjectSystemX"
+}
+
+### Harmonize existing record (recordId = 1)
+POST https://localhost:7144/api/HarmonizedRecords/harmonize/1
+Content-Type: application/json
+
+{
+  "contextPrompt": "Generate concise project report with progress %, risk summary, and next milestone.",
+  "desiredSchema": {
+    "report": {
+      "projectId": "",
+      "title": "",
+      "progressPercent": 0,
+      "risks": [],
+      "nextMilestone": { "name": "", "targetDate": "" }
+    }
+  }
+}
+
+### Get record by id
+GET https://localhost:7144/api/HarmonizedRecords/1
+
+### List harmonized records
+GET https://localhost:7144/api/HarmonizedRecords/harmonized?skip=0&take=20
+
+### List all records
+GET https://localhost:7144/api/HarmonizedRecords?skip=0&take=20
