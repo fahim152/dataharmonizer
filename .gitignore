@@ -1,17 +1,25 @@
 # Build results
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
 # User-specific files
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
+*.DotSettings.user
 
 # Rider/VSCode/VS/JetBrains IDE files
 .idea/
 .vscode/
 *.DotSettings
+.vs/
+*.cache
+*.suo
+*.user
+*.userosscache
 
 # Logs
 *.log
