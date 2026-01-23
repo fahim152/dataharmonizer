@@ -15,5 +15,6 @@ public class HarmonizeRequestCreateDto
 {
     public string Payload { get; set; } = string.Empty;
     public string? Source { get; set; }
+    public int? WorkflowId { get; set; }
 }
 

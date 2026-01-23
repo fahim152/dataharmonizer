@@ -24,6 +24,13 @@ public class HarmonizedRecordsController : ControllerBase
     [HttpGet("by-request/{requestId}")]
     public async Task<ActionResult<List<HarmonizedRecordResponseDto>>> GetByRequestId(int requestId) => Ok(await _service.GetByRequestIdAsync(requestId));
 
+    [HttpGet("by-workflow/{workflowId}")]
+    public async Task<ActionResult<List<HarmonizedRecordResponseDto>>> GetByWorkflowId(int workflowId)
+    {
+        var records = await _service.GetByWorkflowIdAsync(workflowId);
+        return Ok(records);
+    }
+
     [HttpPost]
     public async Task<ActionResult<HarmonizedRecordResponseDto>> Create([FromBody] HarmonizedRecordCreateDto dto)
     {

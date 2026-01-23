@@ -37,12 +37,21 @@ public class HarmonizeRequestRepository : IHarmonizeRequestRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<List<HarmonizeRequest>> GetByWorkflowIdAsync(int workflowId) =>
+        await _context.HarmonizeRequests
+            .Include(r => r.HarmonizedRecords)
+            .Where(r => r.WorkflowId == workflowId)
+            .OrderByDescending(r => r.CreatedAt)
+            .Take(50)
+            .ToListAsync();
 }
 
 public interface IHarmonizeRequestRepository
 {
     Task<HarmonizeRequest?> GetByIdAsync(int id);
     Task<List<HarmonizeRequest>> GetAllAsync();
+    Task<List<HarmonizeRequest>> GetByWorkflowIdAsync(int workflowId);
     Task<HarmonizeRequest> AddAsync(HarmonizeRequest request);
     Task UpdateAsync(HarmonizeRequest request);
     Task DeleteAsync(int id);

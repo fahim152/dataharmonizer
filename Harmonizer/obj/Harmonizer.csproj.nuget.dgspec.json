@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fahim\\RiderProjects\\Harmonizer\\Harmonizer\\Harmonizer.csproj": {}
+    "/Users/dkfahahm/Documents/Projects/dataharmonizer/Harmonizer/Harmonizer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fahim\\RiderProjects\\Harmonizer\\Harmonizer\\Harmonizer.csproj": {
+    "/Users/dkfahahm/Documents/Projects/dataharmonizer/Harmonizer/Harmonizer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fahim\\RiderProjects\\Harmonizer\\Harmonizer\\Harmonizer.csproj",
+        "projectUniqueName": "/Users/dkfahahm/Documents/Projects/dataharmonizer/Harmonizer/Harmonizer.csproj",
         "projectName": "Harmonizer",
-        "projectPath": "C:\\Users\\fahim\\RiderProjects\\Harmonizer\\Harmonizer\\Harmonizer.csproj",
-        "packagesPath": "C:\\Users\\fahim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fahim\\RiderProjects\\Harmonizer\\Harmonizer\\obj\\",
+        "projectPath": "/Users/dkfahahm/Documents/Projects/dataharmonizer/Harmonizer/Harmonizer.csproj",
+        "packagesPath": "/Users/dkfahahm/.nuget/packages/",
+        "outputPath": "/Users/dkfahahm/Documents/Projects/dataharmonizer/Harmonizer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\fahim\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/dkfahahm/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/LEGO/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -32,7 +33,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -41,6 +48,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.21, )"
+            },
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.2.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -85,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.121/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

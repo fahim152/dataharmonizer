@@ -21,6 +21,13 @@ public class HarmonizeRequestsController : ControllerBase
         return result == null ? NotFound() : Ok(result);
     }
 
+    [HttpGet("by-workflow/{workflowId}")]
+    public async Task<ActionResult<List<HarmonizeRequestResponseDto>>> GetByWorkflow(int workflowId)
+    {
+        var result = await _service.GetByWorkflowIdAsync(workflowId);
+        return Ok(result);
+    }
+
     [HttpPost]
     public async Task<ActionResult<HarmonizeRequestResponseDto>> Create([FromBody] HarmonizeRequestCreateDto dto)
     {

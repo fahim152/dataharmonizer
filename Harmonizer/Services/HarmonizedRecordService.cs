@@ -38,6 +38,22 @@ public class HarmonizedRecordService : IHarmonizedRecordService
         return list.ConvertAll(MapToDto);
     }
 
+    public async Task<List<HarmonizedRecordResponseDto>> GetByWorkflowIdAsync(int workflowId)
+    {
+        // Get all requests for this workflow
+        var requests = await _requestRepo.GetByWorkflowIdAsync(workflowId);
+        var allRecords = new List<HarmonizedRecord>();
+        
+        // Get records for each request
+        foreach (var request in requests)
+        {
+            var records = await _recordRepo.GetByRequestIdAsync(request.Id);
+            allRecords.AddRange(records);
+        }
+        
+        return allRecords.ConvertAll(MapToDto);
+    }
+
     public async Task<HarmonizedRecordResponseDto> CreateAsync(HarmonizedRecordCreateDto dto)
     {
         var entity = new HarmonizedRecord

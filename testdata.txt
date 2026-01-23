@@ -1,0 +1,247 @@
+{
+  "inspectionReport": {
+    "reportId": "QC-2026-0120-847",
+    "inspectionDate": "2026-01-20T14:35:22Z",
+    "facility": "Acme Manufacturing Plant A",
+    "inspectionStation": "QC-Station-05",
+    "shift": "Day Shift",
+    "qualityEngineer": "Sarah Mitchell"
+  },
+  "productDetails": {
+    "itemNumber": "PRECISION-GEAR-G500",
+    "itemDescription": "High-Precision Helical Gear for Transmission",
+    "serialCode": "G500-20260120-0847-A",
+    "batchIdentifier": "BATCH-2026-W03-G500",
+    "manufacturingDate": "2026-01-18",
+    "workOrder": "WO-2026-G500-1245",
+    "customerPO": "PO-AUTOMOTIVE-98765",
+    "quantity": 1,
+    "materialGrade": "AISI 4340 Steel, Case Hardened"
+  },
+  "dimensionalInspection": {
+    "outerDiameter": {
+      "measured": 125.02,
+      "nominal": 125.00,
+      "upperTolerance": 125.05,
+      "lowerTolerance": 124.95,
+      "unit": "mm",
+      "instrument": "CMM-Zeiss-07",
+      "measurementPoints": 12
+    },
+    "borediameter": {
+      "measured": 49.98,
+      "nominal": 50.00,
+      "upperTolerance": 50.03,
+      "lowerTolerance": 49.97,
+      "unit": "mm",
+      "instrument": "CMM-Zeiss-07",
+      "measurementPoints": 8
+    },
+    "toothWidth": {
+      "measured": 24.01,
+      "nominal": 24.00,
+      "upperTolerance": 24.05,
+      "lowerTolerance": 23.95,
+      "unit": "mm",
+      "instrument": "Gear Analyzer GA-300",
+      "measurementPoints": 32
+    },
+    "pitchDiameter": {
+      "measured": 100.015,
+      "nominal": 100.000,
+      "upperTolerance": 100.020,
+      "lowerTolerance": 99.980,
+      "unit": "mm",
+      "instrument": "Gear Analyzer GA-300",
+      "measurementPoints": 64
+    },
+    "totalRunout": {
+      "measured": 0.015,
+      "nominal": 0.000,
+      "upperTolerance": 0.025,
+      "lowerTolerance": 0.000,
+      "unit": "mm",
+      "instrument": "Dial Indicator-Mitutoyo",
+      "measurementPoints": 360
+    },
+    "faceWidth": {
+      "measured": 35.00,
+      "nominal": 35.00,
+      "upperTolerance": 35.10,
+      "lowerTolerance": 34.90,
+      "unit": "mm",
+      "instrument": "Digital Caliper-Mitutoyo",
+      "measurementPoints": 6
+    }
+  },
+  "gearQualityMetrics": {
+    "pitchError": {
+      "totalCumulative": 0.008,
+      "singlePitch": 0.003,
+      "tolerance": 0.012,
+      "unit": "mm",
+      "status": "PASS"
+    },
+    "profileDeviation": {
+      "measured": 0.004,
+      "tolerance": 0.006,
+      "unit": "mm",
+      "status": "PASS"
+    },
+    "leadDeviation": {
+      "measured": 0.005,
+      "tolerance": 0.008,
+      "unit": "mm",
+      "status": "PASS"
+    },
+    "toothThickness": {
+      "measured": 11.98,
+      "nominal": 12.00,
+      "tolerance": 0.05,
+      "unit": "mm",
+      "status": "PASS"
+    }
+  },
+  "materialInspection": {
+    "hardnessTest": {
+      "caseHardness": {
+        "measured": 62.5,
+        "specification": "60-64",
+        "unit": "HRC",
+        "location": "Tooth Surface",
+        "testMethod": "Rockwell C",
+        "readings": [62.3, 62.7, 62.4, 62.6, 62.5]
+      },
+      "coreHardness": {
+        "measured": 35.2,
+        "specification": "32-38",
+        "unit": "HRC",
+        "location": "Center Core",
+        "testMethod": "Rockwell C",
+        "readings": [35.0, 35.5, 35.1, 35.3, 35.2]
+      },
+      "caseDepth": {
+        "measured": 1.8,
+        "specification": "1.5-2.0",
+        "unit": "mm",
+        "testMethod": "Microhardness Traverse"
+      }
+    },
+    "chemicalComposition": {
+      "carbon": 0.42,
+      "chromium": 0.85,
+      "nickel": 1.75,
+      "molybdenum": 0.28,
+      "manganese": 0.72,
+      "unit": "%",
+      "certificationRef": "CERT-4340-20260115-A"
+    }
+  },
+  "surfaceQuality": {
+    "roughness": {
+      "toothFlank": {
+        "Ra": 0.8,
+        "Rz": 4.2,
+        "specification_Ra": "≤1.6",
+        "specification_Rz": "≤6.3",
+        "unit": "μm",
+        "instrument": "Surftest SJ-410"
+      },
+      "bore": {
+        "Ra": 0.6,
+        "Rz": 3.5,
+        "specification_Ra": "≤1.6",
+        "specification_Rz": "≤6.3",
+        "unit": "μm",
+        "instrument": "Surftest SJ-410"
+      }
+    },
+    "visualInspection": {
+      "toothSurface": "No cracks, pits, or grinding burns detected",
+      "bore": "Smooth finish, no tool marks",
+      "keyway": "Clean edges, no burrs",
+      "chamfers": "Uniform, within specification"
+    }
+  },
+  "functionalTests": {
+    "noiseTest": {
+      "measured": 58.5,
+      "specification": "≤65",
+      "unit": "dB",
+      "testSpeed": "1500 RPM",
+      "testLoad": "50% rated torque",
+      "status": "PASS"
+    },
+    "vibrationTest": {
+      "measured": 0.08,
+      "specification": "≤0.15",
+      "unit": "mm/s RMS",
+      "testSpeed": "1500 RPM",
+      "status": "PASS"
+    },
+    "balanceTest": {
+      "measured": 2.5,
+      "specification": "≤5.0",
+      "unit": "g·mm",
+      "balanceGrade": "G2.5",
+      "status": "PASS"
+    }
+  },
+  "defectAnalysis": {
+    "criticalDefects": [],
+    "majorDefects": [],
+    "minorDefects": [
+      {
+        "defectCode": "MIN-SURFACE-001",
+        "defectType": "Minor Surface Mark",
+        "description": "Small cosmetic mark on non-functional surface",
+        "location": "Outer rim, non-tooth area, 45° position",
+        "size": "2mm x 0.5mm",
+        "severity": "COSMETIC",
+        "disposition": "ACCEPTABLE - Does not affect function",
+        "detectedBy": "Visual Inspection",
+        "image": "IMG-QC-2026-0120-847-001.jpg"
+      }
+    ]
+  },
+  "inspectionSummary": {
+    "overallResult": "PASS",
+    "qualityScore": 97.5,
+    "conformancePercentage": 100.0,
+    "nonConformities": 0,
+    "deviations": 1,
+    "waivers": 0,
+    "recommendations": "Approved for shipment. Minor cosmetic defect documented but does not affect functionality.",
+    "nextInspectionRequired": false,
+    "reinspectionReason": null
+  },
+  "approvals": {
+    "inspectedBy": "Sarah Mitchell",
+    "inspectorId": "QC-ENG-0425",
+    "inspectionLevel": "Level III",
+    "reviewedBy": "Robert Chen",
+    "reviewerId": "QC-MGR-0012",
+    "approvedBy": "Jennifer Park",
+    "approverId": "QC-DIR-0001",
+    "inspectionDuration": "45 minutes",
+    "certificateNumber": "QC-CERT-2026-0120-847",
+    "digitalSignature": "SIGNED-20260120-143522-SM-RC-JP"
+  },
+  "traceability": {
+    "rawMaterialLot": "RM-4340-20251215-B",
+    "heatTreatmentBatch": "HT-20260117-A",
+    "machiningWorkCenter": "CNC-GEAR-03",
+    "operator": "Michael Torres",
+    "shiftSupervisor": "Lisa Anderson",
+    "qualityPlan": "QP-GEAR-G500-Rev3",
+    "drawingRevision": "DWG-G500-Rev8",
+    "specificationStandard": "AGMA 2015-1-A01, ISO 1328-1:2013"
+  },
+  "additionalNotes": {
+    "specialInstructions": "Customer requires full dimensional report with certificate of conformance",
+    "packagingRequirements": "Individual VCI bag, foam insert, corrugated box",
+    "shippingPriority": "Standard",
+    "customerNotification": "Email QC report to engineering@customer.com",
+    "internalNotes": "Part manufactured to replace field failure - extra attention to case hardness depth"
+  }
+}

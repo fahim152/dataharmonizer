@@ -3,6 +3,9 @@ using Harmonizer.Data;
 using Harmonizer.Services.LLM;
 using Harmonizer.Repositories;
 using Harmonizer.Services;
+using Harmonizer.Hubs;
+using Harmonizer.BackgroundServices;
+using System.Threading.Channels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,38 +13,59 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<LlmOptions>(builder.Configuration.GetSection("LLM"));
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Add CORS policy (adjust origins in production)
+
+// Add SignalR
+builder.Services.AddSignalR();
+
+// Add CORS policy for SignalR
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:3000", "http://localhost:5173")
               .AllowAnyHeader()
-              .AllowAnyMethod());
+              .AllowAnyMethod()
+              .AllowCredentials()); // Required for SignalR
 });
+
+// Channel for background processing
+builder.Services.AddSingleton(Channel.CreateUnbounded<HarmonizationJob>());
+
+// Background service for async harmonization
+builder.Services.AddHostedService<HarmonizationBackgroundService>();
 
 // DbContext & DI registrations
 builder.Services.AddDbContext<HarmonizerDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpClient<ILLMClient, LmStudioLlmClient>();
 
-// Register repositories and services for both entities
+// Register repositories and services
 builder.Services.AddScoped<IHarmonizeRequestRepository, HarmonizeRequestRepository>();
 builder.Services.AddScoped<IHarmonizedRecordRepository, HarmonizedRecordRepository>();
+builder.Services.AddScoped<IPromptRepository, PromptRepository>();
+builder.Services.AddScoped<IWorkflowRepository, WorkflowRepository>();
 builder.Services.AddScoped<IHarmonizeRequestService, HarmonizeRequestService>();
 builder.Services.AddScoped<IHarmonizedRecordService, HarmonizedRecordService>();
+builder.Services.AddScoped<IPromptService, PromptService>();
+builder.Services.AddScoped<IWorkflowService, WorkflowService>();
+
+// New services for enhanced harmonization platform
+builder.Services.AddScoped<IDynamicTableService, DynamicTableService>();
+builder.Services.AddScoped<IOutboundApiService, OutboundApiService>();
+builder.Services.AddHttpClient<IApiForwardingService, ApiForwardingService>();
+
 builder.Services.AddHttpClient(); // For LLM calls
 
 var app = builder.Build();
 
-// Apply migrations / create database
+// Apply migrations / create database and seed data
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<HarmonizerDbContext>();
     db.Database.Migrate();
+    await DataSeeder.SeedData(db);
 }
 
 // Configure the HTTP request pipeline.
@@ -59,6 +83,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll"); // enable CORS before mapping controllers
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<DataHarmonizerHub>("/harmonizerhub"); // SignalR endpoint
 
 var summaries = new[]
 {

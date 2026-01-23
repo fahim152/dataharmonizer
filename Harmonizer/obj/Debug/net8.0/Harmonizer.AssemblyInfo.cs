@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Harmonizer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80555bb3a2c4997c2d0e9502ade3e609d4e8016a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Harmonizer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Harmonizer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
