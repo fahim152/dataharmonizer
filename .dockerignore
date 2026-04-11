@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# IDE / Editor
+.vs
+.vscode
+*.user
+*.suo
+
+# Build outputs
+Harmonizer/bin/
+Harmonizer/obj/
+Frontend/node_modules/
+Frontend/dist/
+
+# Database files (will be created at runtime)
+*.db
+*.db-shm
+*.db-wal
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Docs
+README.md
+*.md
+
+# Test data
+testdata.txt

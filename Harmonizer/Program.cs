@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpOverrides;
 using Harmonizer.Data;
 using Harmonizer.Services.LLM;
 using Harmonizer.Repositories;
@@ -24,7 +25,7 @@ builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
-        policy.WithOrigins("http://localhost:3000", "http://localhost:5173")
+        policy.WithOrigins("http://localhost:3000", "http://localhost:5173", "http://localhost:8080")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials()); // Required for SignalR
@@ -69,21 +70,44 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+
+// Trust nginx forwarded headers (X-Forwarded-For, X-Forwarded-Proto)
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+app.UseSwagger();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Harmonizer API v1");
-        c.RoutePrefix = string.Empty; // makes Swagger UI the root page
+        c.RoutePrefix = string.Empty; // makes Swagger UI the root page in dev
+    });
+}
+else
+{
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Harmonizer API v1");
+        c.RoutePrefix = "swagger"; // keep swagger at /swagger in production
     });
 }
 
 // app.UseHttpsRedirection(); // Disabled for local development to avoid SSL issues
 app.UseCors("AllowAll"); // enable CORS before mapping controllers
+
+// Serve the React SPA from wwwroot (used in Docker / production)
+app.UseDefaultFiles();   // serves index.html for "/"
+app.UseStaticFiles();    // serves JS, CSS, etc. from wwwroot
+
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<DataHarmonizerHub>("/harmonizerhub"); // SignalR endpoint
+
+// Fallback: for any non-API, non-file route, serve index.html (SPA client routing)
+app.MapFallbackToFile("index.html");
 
 var summaries = new[]
 {

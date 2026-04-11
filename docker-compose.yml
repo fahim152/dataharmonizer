@@ -1,0 +1,26 @@
+services:
+  # ── .NET backend + React SPA ─────────────────────────────
+  # Bound to 127.0.0.1 by default — your host nginx proxies to it.
+  # For local dev, set HARMONIZER_BIND=0.0.0.0 in .env.
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${HARMONIZER_BIND:-0.0.0.0}:${HARMONIZER_PORT:-7099}:8080"
+    volumes:
+      # Persist the SQLite database across container restarts
+      - harmonizer-data:/app/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/harmonizer.db
+      # Point to your LLM server — adjust the URL as needed
+      # host.docker.internal lets the container reach services on the host machine
+      - LLM__BaseUrl=http://host.docker.internal:1234
+      - LLM__Model=openai/gpt-oss-20b
+      - LLM__Temperature=0.2
+      - LLM__MaxTokens=4096
+    restart: unless-stopped
+
+volumes:
+  harmonizer-data:
